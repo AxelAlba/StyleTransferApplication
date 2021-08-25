@@ -137,11 +137,11 @@ class CameraActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
 
         Log.d(TAG, lastSavedFile)
 
-//        val intent = Intent(this, CreatePostActivity::class.java).apply {
-//            putExtra("IMAGE_URL", lastSavedFile)
-//        }
-//
-//        startActivity(intent)
+        val intent = Intent(this, CreatePostActivity::class.java).apply {
+            putExtra("IMAGE_URL", lastSavedFile)
+        }
+
+        startActivity(intent)
     }
 
     // And update once new picture is taken?

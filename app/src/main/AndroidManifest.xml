@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StyleTransferApplication">
-        <activity android:name=".CameraActivity"></activity>
+        <activity android:name=".CreatePostActivity"></activity>
+        <activity android:name=".CameraActivity" />
         <activity android:name=".StyleTransferActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

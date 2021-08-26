@@ -61,12 +61,6 @@ class CameraActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
         setupControls()
     }
 
-    private fun enableControls(enable: Boolean) {
-        isRunningModel = !enable
-        rerunButton.isEnabled = enable
-        captureButton.isEnabled = enable
-    }
-
     private fun setupControls() {
         captureButton.setOnClickListener {
             it.clearAnimation()
@@ -143,23 +137,6 @@ class CameraActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
 
         startActivity(intent)
     }
-
-    // And update once new picture is taken?
-    // Alternatively we can provide user an ability to select any of taken photos
-    private fun getLastTakenPicture(): String {
-        val directory = baseContext.filesDir // externalMediaDirs.first()
-        var files =
-            directory.listFiles()?.filter { file -> file.absolutePath.endsWith(".jpg") }?.sorted()
-        if (files == null || files.isEmpty()) {
-            Log.d(TAG, "there is no previous saved file")
-            return ""
-        }
-
-        val file = files.last()
-        Log.d(TAG, "lastsavedfile: " + file.absolutePath)
-        return file.absolutePath
-    }
-
 
     // this transformation is necessary to show the top square of the image as the model
     // will work on this part only, making the preview and the result show the same base

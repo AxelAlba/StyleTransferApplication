@@ -4,7 +4,7 @@
 
 BETA Features:
 * Camera upload - upload image straight from the camera
-* Style Transfer - transfer the style of reference image to target image
+* Style Transfer - transfer the style of a referenced painting to a target image
 
 LIMITATIONS:
 * Taking pictures through camera in a landscape is not supported due to TF Model's restrictions. (It will show black image)

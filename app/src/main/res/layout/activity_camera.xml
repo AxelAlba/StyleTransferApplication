@@ -98,7 +98,7 @@
         android:layout_margin="16dp"
         android:layout_marginEnd="8dp"
         android:clickable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/purple_200"
         app:layout_anchor="@id/bottom_sheet"
         app:layout_anchorGravity="top|end"
         app:srcCompat="@android:drawable/ic_menu_camera" />
@@ -118,7 +118,7 @@
         android:layout_margin="16dp"
         android:layout_marginEnd="8dp"
         android:clickable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/purple_200"
         app:layout_anchor="@id/dummy"
         app:layout_anchorGravity="top|end"
         app:srcCompat="@android:drawable/ic_popup_sync" />

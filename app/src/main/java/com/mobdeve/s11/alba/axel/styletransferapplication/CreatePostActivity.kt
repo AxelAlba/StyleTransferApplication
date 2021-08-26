@@ -1,14 +1,14 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import android.graphics.Bitmap
 import android.view.View
 import android.widget.*
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
@@ -31,7 +31,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
     private lateinit var originalImageView: ImageView
     private lateinit var styleImageView: ImageView
     private lateinit var progressBar: ProgressBar
-
+    private lateinit var postBtn: Button
 
     private var lastSavedFile = ""
     private lateinit var styleTransferModelExecutor: StyleTransferModelExecutor
@@ -77,7 +77,13 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         //lastSavedFile = getLastTakenPicture()
         setImageView(originalImageView, lastSavedFile)
         Log.d(TAG, "finished onCreate!!")
+
+        postBtn = findViewById(R.id.post_button)
+        postBtn.setOnClickListener(){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
+    }
 
     private fun updateUIWithResults(modelExecutionResult: ModelExecutionResult) {
         progressBar.visibility = View.INVISIBLE

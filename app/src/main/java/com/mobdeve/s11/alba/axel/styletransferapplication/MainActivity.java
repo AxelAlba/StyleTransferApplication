@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnStyleTransfer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
                 Intent intent = new Intent(MainActivity.this, CameraActivity.class);
                 startActivity(intent);
             }

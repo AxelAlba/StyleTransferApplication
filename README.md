@@ -7,4 +7,4 @@ BETA Features:
 * Style Transfer - transfer the style of reference image to target image
 
 LIMITATIONS:
-* Taking pictures through camera in a landscape is not supported. (It will show black image)
+* Taking pictures through camera in a landscape is not supported due to TF Model's restrictions. (It will show black image)

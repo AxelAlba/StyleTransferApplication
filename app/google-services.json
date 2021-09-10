@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "788681977855",
+    "project_id": "styletransferapplication-a5f75",
+    "storage_bucket": "styletransferapplication-a5f75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788681977855:android:bf70bf26ccd38a97c901ca",
+        "android_client_info": {
+          "package_name": "com.mobdeve.s11.alba.axel.styletransferapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788681977855-4m4bnar6loufg4eevcpi73convrfs7uk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0-C1Iqllx_4bkkRNuSkbFR-xfYW4QxrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788681977855-4m4bnar6loufg4eevcpi73convrfs7uk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

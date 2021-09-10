@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
@@ -22,6 +23,8 @@ import java.util.concurrent.Executors
 
 private const val TAG = "CreatePostActivity"
 
+@ExperimentalCoroutinesApi
+@Suppress("NAME_SHADOWING")
 class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInteractionListener {
     private var isRunningModel = false
     private val stylesFragment: StyleFragment = StyleFragment()
@@ -36,6 +39,8 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
     private var lastSavedFile = ""
     private lateinit var styleTransferModelExecutor: StyleTransferModelExecutor
     private val inferenceThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+
+    @ExperimentalCoroutinesApi
     private val mainScope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +55,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         val intent = intent
         lastSavedFile = intent.getStringExtra("IMAGE_URL").toString()
 
-        Log.d(TAG, lastSavedFile!!)
+        Log.d(TAG, lastSavedFile)
 
         viewModel = AndroidViewModelFactory(application).create(MLExecutionViewModel::class.java)
         viewModel.styledBitmap.observe(

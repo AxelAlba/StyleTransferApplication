@@ -60,6 +60,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import com.mobdeve.s11.alba.axel.styletransferapplication.ImageUtils
 
+@Suppress("DEPRECATION")
 @SuppressWarnings("GoodTime")
 class CameraFragment : Fragment() {
 
@@ -261,22 +262,23 @@ class CameraFragment : Fragment() {
 
       // Create a capture session using the predefined targets; this also involves defining the
       // session state callback to be notified of when the session is ready
-      device.createCaptureSession(
-        targets,
-        object : CameraCaptureSession.StateCallback() {
-          override fun onConfigureFailed(session: CameraCaptureSession) {
-            val exc = RuntimeException(
-              "Camera ${device.id} session configuration failed, see log for details"
-            )
-            Log.e(TAG, exc.message, exc)
-            cont.resumeWithException(exc)
-          }
+    @Suppress("DEPRECATION")
+    device.createCaptureSession(
+      targets,
+      object : CameraCaptureSession.StateCallback() {
+        override fun onConfigureFailed(session: CameraCaptureSession) {
+          val exc = RuntimeException(
+            "Camera ${device.id} session configuration failed, see log for details"
+          )
+          Log.e(TAG, exc.message, exc)
+          cont.resumeWithException(exc)
+        }
 
-          override fun onConfigured(session: CameraCaptureSession) = cont.resume(session)
-        },
-        cameraHandler
-      )
-    }
+        override fun onConfigured(session: CameraCaptureSession) = cont.resume(session)
+      },
+      cameraHandler
+    )
+  }
 
   fun takePicture() {
     // Perform I/O heavy operations in a different scope

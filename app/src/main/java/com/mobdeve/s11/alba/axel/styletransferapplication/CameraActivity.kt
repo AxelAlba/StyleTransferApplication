@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.mobdeve.s11.alba.axel.styletransferapplication.camera.CameraFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.io.File
 import java.nio.charset.Charset
 import java.security.MessageDigest
@@ -122,6 +123,7 @@ class CameraActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
     }
 
 
+    @ExperimentalCoroutinesApi
     override fun onCaptureFinished(file: File) {
         val msg = "Photo capture succeeded: ${file.absolutePath}"
         Log.d(TAG, msg)

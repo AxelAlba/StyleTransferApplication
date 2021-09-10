@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -10,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.mobdeve.s11.alba.axel.styletransferapplication"
         minSdkVersion 26
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -41,11 +42,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
 
     def camerax_version = "1.0.0-alpha02"
     def lifecycle_version = "2.1.0-alpha02"
     def coroutines_version = "1.1.1"
-    def tfl_version = "0.0.0-nightly-SNAPSHOT"
+    //def tfl_version = "0.0.0-nightly-SNAPSHOT"
+    def tfl_version = "2.6.0"
     def glide_version = "4.9.0"
 
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'

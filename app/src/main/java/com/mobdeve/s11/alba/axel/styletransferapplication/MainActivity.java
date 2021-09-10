@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isFavorite;
     private FloatingActionButton btnStyleTransfer;
 
-//    private lateinit var cameraFragment: CameraFragment
-//    private var lensFacing = CameraCharacteristics.LENS_FACING_FRONT
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,8 +1,10 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -17,14 +19,17 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
+import java.io.File
+import java.io.FileOutputStream
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.util.concurrent.Executors
 
+
 private const val TAG = "CreatePostActivity"
 
 @ExperimentalCoroutinesApi
-@Suppress("NAME_SHADOWING")
+@Suppress("NAME_SHADOWING", "DEPRECATION")
 class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInteractionListener {
     private var isRunningModel = false
     private val stylesFragment: StyleFragment = StyleFragment()
@@ -37,6 +42,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
     private lateinit var postBtn: Button
 
     private var lastSavedFile = ""
+    private var styledImagePath = ""
     private lateinit var styleTransferModelExecutor: StyleTransferModelExecutor
     private val inferenceThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
 
@@ -63,6 +69,8 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
           Observer { resultImage ->
             if (resultImage != null) {
               updateUIWithResults(resultImage)
+                styledImagePath = saveBitmapToStorage(resultImage.styledImage)
+                Log.d(TAG, styledImagePath)
             }
           }
         )
@@ -86,6 +94,8 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         postBtn = findViewById(R.id.post_button)
         postBtn.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
+            val helper = StorageHelper.getInstance()
+            helper.putImage(styledImagePath)
             startActivity(intent)
         }
     }
@@ -94,6 +104,43 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         progressBar.visibility = View.INVISIBLE
         setImageView(originalImageView, modelExecutionResult.styledImage)
     }
+
+    private fun saveBitmapToStorage(image: Bitmap): String {
+        var filename= "";
+        try {
+            filename = "styledImage.jpg"
+            val fileOutputStream: FileOutputStream =
+                this.openFileOutput(filename, Context.MODE_PRIVATE)
+            val status = image.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            Log.d(TAG, "saved successfully " + getFilesDir().toPath())
+            Log.d(TAG, "saved successfully " + getFilesDir().listFiles().joinToString(" "))
+            fileOutputStream.close()
+
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return "" + getFilesDir().toPath() + "/" + filename
+    }
+
+//    private fun SaveImage(finalBitmap: Bitmap) {
+//        val root = Environment.getExternalStorageDirectory().absolutePath
+//        val myDir = File("$root/saved_images")
+//        myDir.mkdirs()
+//        val fname = "Image-" + "test" + ".jpg"
+//        val file = File(myDir, fname)
+//        if (file.exists()) file.delete()
+//        try {
+//            val out: FileOutputStream = FileOutputStream(file)
+//            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
+//            out.flush()
+//            out.close()
+//            Log.d("SaveImage", "success" + file.exists())
+//        } catch (e: java.lang.Exception) {
+//            e.printStackTrace()
+//        }
+//    }
 
     private fun setImageView(imageView: ImageView, image: Bitmap) {
         Glide.with(baseContext)

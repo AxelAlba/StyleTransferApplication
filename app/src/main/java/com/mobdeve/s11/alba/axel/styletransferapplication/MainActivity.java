@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Post> data;
     private boolean isFavorite;
     private FloatingActionButton btnStyleTransfer;
+    private FirestoreHelper db_helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); // disable night mode
 
-        this.initRecyclerView();
-        btnStyleTransfer = findViewById(R.id.btn_style_transfer);
+        // Instantiate DB Helper
+        this.db_helper = FirestoreHelper.getInstance();
 
+//        // demo, add data
+//        this.db_helper.addPost();
+//        this.db_helper.readAllData();
+
+        // initialize recycler view
+        this.initRecyclerView();
+
+        // FAB action
+        btnStyleTransfer = findViewById(R.id.btn_style_transfer);
         btnStyleTransfer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CameraActivity.class);

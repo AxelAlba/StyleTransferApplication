@@ -1,5 +1,6 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -34,16 +35,21 @@ public class FirestoreHelper {
         return instance;
     }
 
-    public void addPost() {
+    public void addPostDocument(Post post) {
         // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
+        Map<String, Object> document = new HashMap<>();
+
+        // Build document of the post
+        document.put("imageURL", post.getImageURI());
+        document.put("username", post.getUsername());
+        document.put("caption", post.getCaption());
+        document.put("datePosted", post.getDatePosted());
+        document.put("numLikes", post.getNumLikes());
+        document.put("liked", post.getLiked());
 
         // Add a new document with a generated ID
-        this.db.collection("users")
-                .add(user)
+        this.db.collection("posts")
+                .add(document)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -59,7 +65,7 @@ public class FirestoreHelper {
     }
 
     public void readAllData() {
-        this.db.collection("users")
+        this.db.collection("posts")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -68,7 +74,6 @@ public class FirestoreHelper {
                             // Build ArrayList of Post object here
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                Log.d(TAG, ""+document.getData().get("first"));
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());

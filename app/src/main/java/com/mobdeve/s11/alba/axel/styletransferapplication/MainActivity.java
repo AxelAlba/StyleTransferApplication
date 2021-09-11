@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Post> data;
     private boolean isFavorite;
     private FloatingActionButton btnStyleTransfer;
-    private FirestoreHelper db_helper;
+    private FirestoreHelper firestoreHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); // disable night mode
 
-        // Instantiate DB Helper
-        this.db_helper = FirestoreHelper.getInstance();
-
-//        // demo, add data
-//        this.db_helper.addPost();
-//        this.db_helper.readAllData();
+        this.firestoreHelper = FirestoreHelper.getInstance();
+        // demo, read data
+        this.firestoreHelper.readAllData();
 
         // initialize recycler view
         this.initRecyclerView();

@@ -13,6 +13,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.sql.Timestamp;
 
 public class StorageHelper {
     private StorageReference storageRef;
@@ -31,23 +32,30 @@ public class StorageHelper {
         return instance;
     }
 
-    public void putImage(String img_path) {
+    public void addPost(String img_path, Post post) {
 
         Log.d(TAG, img_path);
 
         Uri file = Uri.fromFile(new File(img_path));
-        StorageReference riversRef = this.storageRef.child("images/rivers.jpg");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        StorageReference imageRef = this.storageRef.child("images/" + post.getUsername() + "_" + timestamp.getTime() +".jpg");
 
-        riversRef.putFile(file)
+        imageRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
-                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                //
                                 Log.d(TAG, uri.toString());
+
+                                // Add URI to Post object
+                                post.setImageURI(uri.toString());
+
+                                // Upload to firestore
+                                FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
+                                firestoreHelper.addPostDocument(post);
                             }
                         });
                     }

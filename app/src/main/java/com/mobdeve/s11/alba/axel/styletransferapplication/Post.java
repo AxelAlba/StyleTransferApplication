@@ -7,39 +7,39 @@ public class Post {
     private String caption, location, username, datePosted;
     private boolean liked;
     private String imageURI;
-
-    // Toy data constructor
-    public Post(int imageId, String datePosted, String caption, String location, boolean liked, String username, int userImageId) {
-        this.imageId = imageId;
-        this.datePosted = datePosted;
-        this.caption = caption;
-        this.location = location;
-        this.liked = liked;
-        this.username = username;
-        this.userImageId = userImageId;
-    }
+    private Long timestamp;
 
     // Post to be stored in Firestore
-    public Post(String imageURI, String username, String caption, String datePosted, int numLikes, boolean liked) {
+    public Post(String imageURI, String username, String caption, String datePosted, int numLikes, boolean liked, Long timestamp) {
         this.imageURI = imageURI;
         this.username = username;
         this.caption = caption;
         this.datePosted = datePosted;
         this.numLikes = numLikes;
         this.liked = liked;
+        this.timestamp = timestamp;
     }
 
-    public Post(String username, String caption, String datePosted, int numLikes, boolean liked) {
+    public Post(String username, String caption, String datePosted, int numLikes, boolean liked, Long timestamp) {
         this.username = username;
         this.caption = caption;
         this.datePosted = datePosted;
         this.numLikes = numLikes;
         this.liked = liked;
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+
+        return this.imageURI + " "+ this.username + " " + this.caption + " " + this.datePosted + " " + this.numLikes + " " + this.liked;
     }
 
     public int getImageId() {
         return imageId;
     }
+
+    public Long getTimestamp() { return timestamp; }
 
     public String getImageURI() { return imageURI; }
 

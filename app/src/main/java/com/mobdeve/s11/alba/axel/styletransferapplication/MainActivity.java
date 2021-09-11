@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.widget.Button;
 import android.os.Bundle;
 import android.view.View;
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.firestoreHelper = FirestoreHelper.getInstance();
         // demo, read data
-        this.firestoreHelper.readAllData();
+
 
         // initialize recycler view
         this.initRecyclerView();
@@ -62,10 +65,63 @@ public class MainActivity extends AppCompatActivity {
         this.rvPosts.setLayoutManager(this.myManager);
 
         // Initialize Adapter
-        data = DataHelper.initializeData();
-        this.myAdapter = new MainAdapter(this.data);
+        //data = DataHelper.initializeData();
+//        this.firestoreHelper.readAllData(new FirestoreHelper.readAllDataCallback() {
+//            @Override
+//            public void result(ArrayList<Post> data) {
+//                data.forEach(post -> {
+//                    Log.d("MAINACTIVITY", post.toString());
+//                });
+//                MainActivity.this.data = data;
+//                MainActivity.this.myAdapter = new MainAdapter(MainActivity.this.data);
+//                MainActivity.this.rvPosts.setAdapter(MainActivity.this.myAdapter);
+//            }
+//        });
 
-        this.rvPosts.setAdapter(this.myAdapter);
+        this.firestoreHelper.readAllDataListen(new FirestoreHelper.readAllDataCallback() {
+            @Override
+            public void result(ArrayList<Post> data) {
+                data.forEach(post -> {
+                    Log.d("MAINACTIVITY", post.toString());
+//                    if (MainActivity.this.data != null) {
+//                        if (!MainActivity.this.data.contains(post)) {
+//                            MainActivity.this.data.add(post);
+//                            MainActivity.this.myAdapter.notifyItemInserted();
+//                        }
+//                    }
+                });
+
+
+
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("HEY", "runOnUiThread");
+                        MainActivity.this.data = data;
+                        MainActivity.this.myAdapter = new MainAdapter(MainActivity.this.data);
+                        MainActivity.this.rvPosts.setAdapter(MainActivity.this.myAdapter);
+                    }
+                });
+
+//                new Handler(Looper.getMainLooper()).post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (MainActivity.this.data != null) {
+//                            MainActivity.this.data.clear();
+//                            MainActivity.this.data.addAll(data);
+//                            MainActivity.this.myAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                });
+
+            }
+        });
+
+
+//        this.myAdapter = new MainAdapter(this.data);
+//
+//        this.rvPosts.setAdapter(this.myAdapter);
     }
 
 

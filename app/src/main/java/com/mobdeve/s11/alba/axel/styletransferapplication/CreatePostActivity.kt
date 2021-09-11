@@ -21,6 +21,7 @@ import kotlinx.coroutines.async
 import java.io.FileOutputStream
 import java.nio.charset.Charset
 import java.security.MessageDigest
+import java.sql.Timestamp
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,8 +102,8 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
             // Create Post object
             val df: DateFormat = SimpleDateFormat("dd MMMM yyyy")
             val strDate: String = df.format(Date())
-
-            val post = Post("username placeholder", "caption placeholder", strDate, 0, false)
+            val timestamp = Timestamp(System.currentTimeMillis()).getTime()
+            val post = Post("username placeholder", "caption placeholder", strDate, 0, false, timestamp)
 
             // Upload Post
             storageHelper.addPost(styledImagePath, post)

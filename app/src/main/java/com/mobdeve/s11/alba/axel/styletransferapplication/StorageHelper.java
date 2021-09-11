@@ -37,8 +37,8 @@ public class StorageHelper {
         Log.d(TAG, img_path);
 
         Uri file = Uri.fromFile(new File(img_path));
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        StorageReference imageRef = this.storageRef.child("images/" + post.getUsername() + "_" + timestamp.getTime() +".jpg");
+
+        StorageReference imageRef = this.storageRef.child("images/" + post.getUsername() + "_" + post.getTimestamp() +".jpg");
 
         imageRef.putFile(file)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

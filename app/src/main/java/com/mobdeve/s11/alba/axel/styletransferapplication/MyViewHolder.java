@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,9 +26,12 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     private TextView tvDatePosted;
     private FloatingActionButton fabLike;
     private boolean liked;
+    private Context context;
 
     public MyViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
+
+        this.context = itemView.getContext();
 
         // Header
         this.ivRoundPlaceholder = itemView.findViewById(R.id.iv_round_placeholder);
@@ -49,9 +53,18 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         this.liked = !this.liked;
         this.setLike(this.liked);
     }
+    // old
+//    public void setHeader(int profileImage, String username, String location) {
+//        this.ivRoundPlaceholder.setImageResource(profileImage);
+//        this.tvUsername.setText(username);
+//        if (location != null) {
+//            this.tvLocation.setText(location);
+//        } else {
+//            this.tvLocation.setVisibility(View.GONE);
+//        }
+//    }
 
-    public void setHeader(int profileImage, String username, String location) {
-        this.ivRoundPlaceholder.setImageResource(profileImage);
+    public void setHeader(String username, String location) {
         this.tvUsername.setText(username);
         if (location != null) {
             this.tvLocation.setText(location);
@@ -59,9 +72,14 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             this.tvLocation.setVisibility(View.GONE);
         }
     }
+//Glide.with(this).load(URL_TO_IMAGE).into(imageView);
 
-    public void setMainPost(int mainPostImage) {
-        this.ivMainPost.setImageResource(mainPostImage);
+//    public void setMainPost(int mainPostImage) {
+//        this.ivMainPost.setImageResource(mainPostImage);
+//    }
+
+    public void setMainPost(String url) {
+        Glide.with(this.context).load(url).into(this.ivMainPost);
     }
 
     public void setCaption(String username, String caption, String datePosted) {

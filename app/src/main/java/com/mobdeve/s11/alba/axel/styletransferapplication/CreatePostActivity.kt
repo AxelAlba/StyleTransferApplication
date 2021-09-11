@@ -42,6 +42,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
     private lateinit var styleImageView: ImageView
     private lateinit var progressBar: ProgressBar
     private lateinit var postBtn: Button
+    private lateinit var etCaption: EditText
 
     private var lastSavedFile = ""
     private var styledImagePath = ""
@@ -58,7 +59,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         originalImageView = findViewById(R.id.original_imageview)
         styleImageView = findViewById(R.id.style_imageview)
         progressBar = findViewById(R.id.progress_circular)
-
+        etCaption = findViewById(R.id.et_caption)
 
 
         val intent = intent
@@ -103,7 +104,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
             val df: DateFormat = SimpleDateFormat("dd MMMM yyyy")
             val strDate: String = df.format(Date())
             val timestamp = Timestamp(System.currentTimeMillis()).getTime()
-            val post = Post("username placeholder", "caption placeholder", strDate, 0, false, timestamp)
+            val post = Post("username placeholder", etCaption.getText().toString(), strDate, 0, false, timestamp)
 
             // Upload Post
             storageHelper.addPost(styledImagePath, post)

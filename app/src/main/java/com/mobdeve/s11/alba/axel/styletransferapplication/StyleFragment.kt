@@ -64,6 +64,8 @@ class StyleFragment : DialogFragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
+        abstract val DateTimeFormatter: Any
+
         fun onListFragmentInteraction(item: String)
     }
 

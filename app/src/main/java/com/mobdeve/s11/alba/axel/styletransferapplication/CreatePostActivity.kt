@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -19,10 +18,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
-import java.io.File
 import java.io.FileOutputStream
 import java.nio.charset.Charset
 import java.security.MessageDigest
+import java.sql.Timestamp
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.Executors
 
 
@@ -40,6 +42,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
     private lateinit var styleImageView: ImageView
     private lateinit var progressBar: ProgressBar
     private lateinit var postBtn: Button
+    private lateinit var etCaption: EditText
 
     private var lastSavedFile = ""
     private var styledImagePath = ""
@@ -56,6 +59,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         originalImageView = findViewById(R.id.original_imageview)
         styleImageView = findViewById(R.id.style_imageview)
         progressBar = findViewById(R.id.progress_circular)
+        etCaption = findViewById(R.id.et_caption)
 
 
         val intent = intent
@@ -94,8 +98,17 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         postBtn = findViewById(R.id.post_button)
         postBtn.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
-            val helper = StorageHelper.getInstance()
-            helper.putImage(styledImagePath)
+            val storageHelper = StorageHelper.getInstance()
+
+            // Create Post object
+            val df: DateFormat = SimpleDateFormat("dd MMMM yyyy")
+            val strDate: String = df.format(Date())
+            val timestamp = Timestamp(System.currentTimeMillis()).getTime()
+            val post = Post("username placeholder", etCaption.getText().toString(), strDate, 0, false, timestamp)
+
+            // Upload Post
+            storageHelper.addPost(styledImagePath, post)
+
             startActivity(intent)
         }
     }
@@ -158,6 +171,9 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
             .apply(RequestOptions().transform(CropTop()))
             .into(imageView)
     }
+
+    override val DateTimeFormatter: Any
+        get() = TODO("Not yet implemented")
 
     override fun onListFragmentInteraction(item: String) {
         Log.d(TAG, item)

@@ -46,14 +46,14 @@
         app:layout_constraintGuide_begin="442dp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/et_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="18dp"
         android:ems="10"
         android:hint="write your caption here"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

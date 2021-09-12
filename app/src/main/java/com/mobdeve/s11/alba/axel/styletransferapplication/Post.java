@@ -1,23 +1,49 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication;
 
+import android.net.Uri;
+
 public class Post {
-    private int imageId, userImageId;
+    private int imageId, userImageId, numLikes;
     private String caption, location, username, datePosted;
     private boolean liked;
+    private String imageURI;
+    private Long timestamp;
 
-    public Post(int imageId, String datePosted, String caption, String location, boolean liked, String username, int userImageId) {
-        this.imageId = imageId;
-        this.datePosted = datePosted;
-        this.caption = caption;
-        this.location = location;
-        this.liked = liked;
+    // Post to be stored in Firestore
+    public Post(String imageURI, String username, String caption, String datePosted, int numLikes, boolean liked, Long timestamp) {
+        this.imageURI = imageURI;
         this.username = username;
-        this.userImageId = userImageId;
+        this.caption = caption;
+        this.datePosted = datePosted;
+        this.numLikes = numLikes;
+        this.liked = liked;
+        this.timestamp = timestamp;
+    }
+
+    public Post(String username, String caption, String datePosted, int numLikes, boolean liked, Long timestamp) {
+        this.username = username;
+        this.caption = caption;
+        this.datePosted = datePosted;
+        this.numLikes = numLikes;
+        this.liked = liked;
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+
+        return this.imageURI + " "+ this.username + " " + this.caption + " " + this.datePosted + " " + this.numLikes + " " + this.liked;
     }
 
     public int getImageId() {
         return imageId;
     }
+
+    public Long getTimestamp() { return timestamp; }
+
+    public String getImageURI() { return imageURI; }
+
+    public int getNumLikes() { return numLikes; }
 
     public String getDatePosted() {
         return datePosted;
@@ -46,5 +72,7 @@ public class Post {
     public void setLiked(boolean liked) {
         this.liked = liked;
     }
+
+    public void setImageURI(String uri) { this.imageURI = uri; }
 }
 

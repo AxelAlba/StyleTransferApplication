@@ -41,10 +41,12 @@ android {
 //apply from: 'download_model.gradle'
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
     def camerax_version = "1.0.0-alpha02"
     def lifecycle_version = "2.1.0-alpha02"

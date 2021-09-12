@@ -27,7 +27,7 @@ private const val REQUEST_CODE_PERMISSIONS = 10
 // This is an array of all the permission specified in the manifest
 private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
-private const val TAG = "MainActivity"
+private const val TAG = "CameraActivity"
 
 class CameraActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
     private var isRunningModel = false

@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -48,6 +50,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
     private var styledImagePath = ""
     private lateinit var styleTransferModelExecutor: StyleTransferModelExecutor
     private val inferenceThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+    private lateinit var signInAccount: GoogleSignInAccount
 
     @ExperimentalCoroutinesApi
     private val mainScope = MainScope()
@@ -61,6 +64,8 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         progressBar = findViewById(R.id.progress_circular)
         etCaption = findViewById(R.id.et_caption)
 
+        // google signIn
+        signInAccount = GoogleSignIn.getLastSignedInAccount(this)
 
         val intent = intent
         lastSavedFile = intent.getStringExtra("IMAGE_URL").toString()
@@ -104,7 +109,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
             val df: DateFormat = SimpleDateFormat("dd MMMM yyyy")
             val strDate: String = df.format(Date())
             val timestamp = Timestamp(System.currentTimeMillis()).getTime()
-            val post = Post("username placeholder", etCaption.getText().toString(), strDate, 0, false, timestamp)
+            val post = Post(signInAccount.getDisplayName(), etCaption.getText().toString(), strDate, 0, false, timestamp)
 
             // Upload Post
             storageHelper.addPost(styledImagePath, post)

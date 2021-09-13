@@ -81,12 +81,17 @@ public class LandingActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d(TAG, "get result failure");
+
+
                 firebaseAuthWithGoogle(account.getIdToken());
+                Log.d(TAG, "auth with google failure");
+
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 // ...
-                //Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Failure on activity result");
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Failure on activity : " + e.getStackTrace());
             }
         }
     }

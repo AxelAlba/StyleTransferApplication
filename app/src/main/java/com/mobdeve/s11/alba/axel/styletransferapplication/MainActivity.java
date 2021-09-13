@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         if(signInAccount != null){
             // see if user can be find
             Log.d(TAG, "Display name: "+signInAccount.getDisplayName());
-            Log.d(TAG, "email: "+ signInAccount.getDisplayName());
+            Log.d(TAG, "email: "+ signInAccount.getEmail());
         }
 
 

@@ -42,7 +42,7 @@ public class LandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-
+        getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         createRequest();
         findViewById(R.id.google_signIn).setOnClickListener(new View.OnClickListener() {

@@ -1,12 +1,15 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
@@ -101,20 +104,36 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         Log.d(TAG, "finished onCreate!!")
 
         postBtn = findViewById(R.id.post_button)
-        postBtn.setOnClickListener(){
-            val intent = Intent(this, MainActivity::class.java)
-            val storageHelper = StorageHelper.getInstance()
+        postBtn.setOnClickListener() {
+            if (TextUtils.isEmpty(styledImagePath)) {
+                val alertDialog: AlertDialog = AlertDialog.Builder(this).create()
+                alertDialog.setTitle("Paint Your Image!")
+                alertDialog.setMessage("Hi there! Please set the style of your image before posting.")
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+                alertDialog.show()
+            }
+            else {
+                val intent = Intent(this, MainActivity::class.java)
+                val storageHelper = StorageHelper.getInstance()
 
-            // Create Post object
-            val df: DateFormat = SimpleDateFormat("dd MMMM yyyy")
-            val strDate: String = df.format(Date())
-            val timestamp = Timestamp(System.currentTimeMillis()).getTime()
-            val post = Post(signInAccount.getDisplayName(), etCaption.getText().toString(), strDate, 0, false, timestamp)
+                // Create Post object
+                val df: DateFormat = SimpleDateFormat("dd MMMM yyyy")
+                val strDate: String = df.format(Date())
+                val timestamp = Timestamp(System.currentTimeMillis()).getTime()
+                val post = Post(
+                    signInAccount.getDisplayName(),
+                    etCaption.getText().toString(),
+                    strDate,
+                    0,
+                    false,
+                    timestamp
+                )
 
-            // Upload Post
-            storageHelper.addPost(styledImagePath, post)
-
-            startActivity(intent)
+                // Upload Post
+                storageHelper.addPost(styledImagePath, post)
+                startActivity(intent)
+            }
         }
     }
 

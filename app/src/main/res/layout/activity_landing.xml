@@ -8,12 +8,14 @@
 
     <Button
         android:id="@+id/google_signIn"
-        android:layout_width="283dp"
-        android:layout_height="47dp"
+        android:layout_width="204dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#4285F4"
+        android:drawableStart="@drawable/google"
         android:drawableLeft="@drawable/google"
         android:elevation="8dp"
         android:text="Sign In with Google"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,21 +28,26 @@
         android:layout_height="281dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.206"
+        app:layout_constraintVertical_bias="0.268"
         app:srcCompat="@drawable/mockingbird" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:fontFamily="casual"
+        android:text="MockingBird"
+        android:textColor="#9C27B0"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/google_signIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.673" />
+        app:layout_constraintVertical_bias="0.767" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

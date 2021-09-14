@@ -51,14 +51,6 @@ public class LandingActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
-        findViewById(R.id.debug_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void createRequest() {

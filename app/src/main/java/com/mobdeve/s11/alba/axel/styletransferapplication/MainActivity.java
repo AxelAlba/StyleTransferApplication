@@ -20,6 +20,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private String TAG = "MainActivity";
     private FirestoreHelper firestoreHelper;
+    private Parcelable recyclerViewState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,17 +229,56 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-
+                if (MainActivity.this.data != null) {
+                    MainActivity.this.data.clear();
+                    MainActivity.this.data.addAll(data);
+                } else {
+                    MainActivity.this.data = data;
+                    MainActivity.this.myAdapter = new MainAdapter(MainActivity.this.data);
+                    MainActivity.this.rvPosts.setAdapter(MainActivity.this.myAdapter);
+                }
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("HEY", "runOnUiThread");
-                        MainActivity.this.data = data;
-                        MainActivity.this.myAdapter = new MainAdapter(MainActivity.this.data);
-                        MainActivity.this.rvPosts.setAdapter(MainActivity.this.myAdapter);
+                        // Save state
+                        recyclerViewState = rvPosts.getLayoutManager().onSaveInstanceState();
+
+                        // Notify data update
+                        MainActivity.this.myAdapter.notifyDataSetChanged();
+
+                        // Restore state
+                        rvPosts.getLayoutManager().onRestoreInstanceState(recyclerViewState);
                     }
                 });
+
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.d("HEY", "runOnUiThread");
+////                        MainActivity.this.data = data;
+////                        MainActivity.this.myAdapter = new MainAdapter(MainActivity.this.data);
+////                        MainActivity.this.rvPosts.setAdapter(MainActivity.this.myAdapter);
+//                        if (MainActivity.this.data != null) {
+//                            MainActivity.this.data.clear();
+//                            MainActivity.this.data.addAll(data);
+//
+//                            // Save state
+//                            recyclerViewState = rvPosts.getLayoutManager().onSaveInstanceState();
+//
+//                            // Notify data update
+//                            MainActivity.this.myAdapter.notifyDataSetChanged();
+//
+//                            // Restore state
+//                            rvPosts.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+//                        } else {
+//                            MainActivity.this.data = data;
+//                            MainActivity.this.myAdapter = new MainAdapter(MainActivity.this.data);
+//                            MainActivity.this.rvPosts.setAdapter(MainActivity.this.myAdapter);
+//                        }
+//
+//                    }
+//                });
 
 //                new Handler(Looper.getMainLooper()).post(new Runnable() {
 //                    @Override

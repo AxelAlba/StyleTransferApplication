@@ -6,11 +6,12 @@ public class Post {
     private int imageId, userImageId, numLikes;
     private String caption, location, username, datePosted;
     private boolean liked;
-    private String imageURI;
+    private String imageURI, firestoreID;
     private Long timestamp;
 
     // Post to be stored in Firestore
-    public Post(String imageURI, String username, String caption, String datePosted, int numLikes, boolean liked, Long timestamp) {
+    public Post(String firestoreID, String imageURI, String username, String caption, String datePosted, int numLikes, boolean liked, Long timestamp) {
+        this.firestoreID = firestoreID;
         this.imageURI = imageURI;
         this.username = username;
         this.caption = caption;
@@ -73,6 +74,10 @@ public class Post {
         this.liked = liked;
     }
 
+    public String getFirestoreID() { return firestoreID; }
+
     public void setImageURI(String uri) { this.imageURI = uri; }
+
+    public void setFirestoreID(String id) { this.firestoreID = id; }
 }
 

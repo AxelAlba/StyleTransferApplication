@@ -1,6 +1,7 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,13 +21,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     private ImageView ivRoundPlaceholder;
     private ImageView ivMainPost;
     private TextView tvUsername;
-    private TextView tvLocation;
-    private TextView tvCaptionUsername;
     private TextView tvCaption;
     private TextView tvDatePosted;
     private FloatingActionButton fabLike;
-    private boolean liked;
     private Context context;
+    private TextView tvNumLikes;
 
     public MyViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -42,15 +41,17 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         // Caption Section
         this.tvCaption = itemView.findViewById(R.id.tv_caption_text);
         this.fabLike = itemView.findViewById(R.id.fab_like);
-        this.fabLike.setOnClickListener(this);
+//        this.fabLike.setOnClickListener(this);
+
+        this.tvNumLikes = itemView.findViewById(R.id.tv_num_likes);
 
     }
 
-    @Override
-    public void onClick(View view) {
-        this.liked = !this.liked;
-        this.setLike(this.liked);
-    }
+//    @Override
+//    public void onClick(View view) {
+//        this.liked = !this.liked;
+//        this.addLike();
+//    }
     // old
 //    public void setHeader(int profileImage, String username, String location) {
 //        this.ivRoundPlaceholder.setImageResource(profileImage);
@@ -86,21 +87,18 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         } else {
             this.tvCaption.setVisibility(View.GONE);
         }
-
-        this.tvDatePosted.setText(datePosted);
     }
 
-    public void setLike(boolean liked) {
-        // Save to local variable
-        this.liked = liked;
-
-        if (liked) {
-            this.fabLike.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.heart_on));
-        } else {
-            this.fabLike.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.heart_off));
-        }
+    public void setNumLikes(int numLikes) {
+        this.tvNumLikes.setText(Integer.toString(numLikes));
     }
 
+    @Override
+    public void onClick(View v) {
+        Log.d("NOTICE ME", "IM AN UNEXPECTED ONCLICK FROM MYVIEWHOLDER");
+    }
 
-
+    public void setLikeBtnOnClickListener(View.OnClickListener onClickListener) {
+        this.fabLike.setOnClickListener(onClickListener);
+    }
 }

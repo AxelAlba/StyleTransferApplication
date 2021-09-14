@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -119,6 +120,7 @@ public class FirestoreHelper {
                             Log.w(TAG, "Error getting documents.", e);
                             return;
                         } else {
+                            Log.w(TAG, "readAllDataListen triggered.", e);
                             ArrayList<Post> data = new ArrayList<>();
 
                             for (QueryDocumentSnapshot document : value) {
@@ -126,6 +128,7 @@ public class FirestoreHelper {
                                 //Log.d(TAG, document.getId() + " => " + tempDocument.get("username"));
                                 //Log.d(TAG, "wa");
                                 data.add(new Post(
+                                        document.getId(),
                                         document.get("imageURL").toString(),
                                         document.get("username").toString(),
                                         document.get("caption").toString(),
@@ -143,32 +146,23 @@ public class FirestoreHelper {
                 });
     }
 
-//    public static ArrayList<Post> initializeData() {
-//        String[] usernames = {"vincent", "edvard_munch"};
-//        int[] userImages = {R.drawable.vincent, R.drawable.edvard};
-//
-//        ArrayList<Post> data = new ArrayList<>();
-//        data.add(new Post(
-//                R.drawable.starry_night,
-//                "June 18, 1889",
-//                "The Starry Night.",
-//                "somewhere",
-//                false,
-//                usernames[0],
-//                userImages[0]));
-//
-//        data.add(new Post(
-//                R.drawable.scream,
-//                "February 14, 1893",
-//                "SCREEEAAAM!!!!",
-//                "somewhere there",
-//                true,
-//                usernames[1],
-//                userImages[1]));
-//
-//
-//        Collections.shuffle(data);
-//
-//        return data;
-//    }
+    public void addLike(String firestoreID) {
+        this.db.collection("posts")
+                .document(firestoreID)
+                .update("numLikes", FieldValue.increment(1))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+
+    }
+
 }

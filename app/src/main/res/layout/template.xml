@@ -123,21 +123,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:maxImageSize="26dp"
                     app:rippleColor="#00FFFFFF"
-                    app:srcCompat="@drawable/heart_off"
+                    app:srcCompat="@drawable/heart_on"
                     app:tint="@null" />
-
-                <TextView
-                    android:id="@+id/tv_caption_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fab_like"
-                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/tv_num_likes"
@@ -151,6 +138,19 @@
                     app:layout_constraintStart_toEndOf="@+id/fab_like"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.166" />
+
+                <TextView
+                    android:id="@+id/tv_caption_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fab_like"
+                    app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -36,13 +36,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         // Header
         this.ivRoundPlaceholder = itemView.findViewById(R.id.iv_round_placeholder);
         this.tvUsername = itemView.findViewById(R.id.tv_username);
-        this.tvLocation = itemView.findViewById(R.id.tv_location);
+        this.tvDatePosted = itemView.findViewById(R.id.tv_date);
         // Image
         this.ivMainPost = itemView.findViewById(R.id.iv_main_post);
         // Caption Section
-        this.tvCaptionUsername = itemView.findViewById(R.id.tv_username_caption);
         this.tvCaption = itemView.findViewById(R.id.tv_caption_text);
-        this.tvDatePosted = itemView.findViewById(R.id.tv_date);
         this.fabLike = itemView.findViewById(R.id.fab_like);
         this.fabLike.setOnClickListener(this);
 
@@ -64,12 +62,12 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 //        }
 //    }
 
-    public void setHeader(String username, String location) {
+    public void setHeader(String username, String date) {
         this.tvUsername.setText(username);
-        if (location != null) {
-            this.tvLocation.setText(location);
+        if (date != null) {
+            this.tvDatePosted.setText(date);
         } else {
-            this.tvLocation.setVisibility(View.GONE);
+            this.tvDatePosted.setVisibility(View.GONE);
         }
     }
 //Glide.with(this).load(URL_TO_IMAGE).into(imageView);
@@ -82,12 +80,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         Glide.with(this.context).load(url).into(this.ivMainPost);
     }
 
-    public void setCaption(String username, String caption, String datePosted) {
+    public void setCaption(String caption, String datePosted) {
         if (caption != null) {
-            this.tvCaptionUsername.setText(username);
             this.tvCaption.setText(caption);
         } else {
-            this.tvCaptionUsername.setVisibility(View.GONE);
             this.tvCaption.setVisibility(View.GONE);
         }
 

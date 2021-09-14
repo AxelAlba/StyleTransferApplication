@@ -3,7 +3,7 @@
     <item name="guideline5" type="id" />
     <item name="tv_username" type="id" />
     <item name="cv_profile_picture" type="id" />
-    <item name="tv_location" type="id" />
+    <item name="tv_date" type="id" />
     <item name="iv_round_placeholder" type="id" />
     <item name="iv_main_post" type="id" />
     <item name="fab_like" type="id" />

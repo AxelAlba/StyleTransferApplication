@@ -3,11 +3,13 @@ package com.mobdeve.s11.alba.axel.styletransferapplication
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.bumptech.glide.Glide
@@ -78,7 +80,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
           Observer { resultImage ->
             if (resultImage != null) {
               updateUIWithResults(resultImage)
-                styledImagePath = saveBitmapToStorage(resultImage.styledImage)
+                styledImagePath = saveBitmapToStorage(resultImage.styledImage, "styledImage.jpg")
                 Log.d(TAG, styledImagePath)
             }
           }
@@ -98,6 +100,7 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         progressBar.visibility = View.INVISIBLE
         //lastSavedFile = getLastTakenPicture()
         setImageView(originalImageView, lastSavedFile)
+
         Log.d(TAG, "finished onCreate!!")
 
         postBtn = findViewById(R.id.post_button)
@@ -123,18 +126,14 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         setImageView(originalImageView, modelExecutionResult.styledImage)
     }
 
-    private fun saveBitmapToStorage(image: Bitmap): String {
-        var filename= "";
+    private fun saveBitmapToStorage(image: Bitmap, filename : String): String {
         try {
-            filename = "styledImage.jpg"
             val fileOutputStream: FileOutputStream =
                 this.openFileOutput(filename, Context.MODE_PRIVATE)
             val status = image.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
             Log.d(TAG, "saved successfully " + getFilesDir().toPath())
             Log.d(TAG, "saved successfully " + getFilesDir().listFiles().joinToString(" "))
             fileOutputStream.close()
-
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -195,6 +194,8 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
     private fun startRunningModel() {
         if (!isRunningModel && lastSavedFile.isNotEmpty() && selectedStyle.isNotEmpty()) {
             setImageView(styleImageView, getUriFromAssetThumb(selectedStyle))
+            var img = originalImageView.drawable.toBitmap()
+            lastSavedFile = saveBitmapToStorage(img, "lastSavedFile.jpg")
             progressBar.visibility = View.VISIBLE
             viewModel.onApplyStyle(
                 baseContext, lastSavedFile, selectedStyle, styleTransferModelExecutor,
@@ -216,7 +217,13 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
         ): Bitmap {
             return if (toTransform.width == outWidth && toTransform.height == outHeight) {
                 toTransform
-            } else ImageUtils.scaleBitmapAndKeepRatio(toTransform, outWidth, outHeight)
+            } else {
+                try {
+                    ImageUtils.scaleBitmapAndKeepRatioPortrait(toTransform, outWidth, outHeight)
+                } catch (e: IllegalArgumentException) {
+                    ImageUtils.scaleBitmapAndKeepRatioLandscape(toTransform, outWidth, outHeight)
+                }
+            }
         }
 
         override fun equals(other: Any?): Boolean {

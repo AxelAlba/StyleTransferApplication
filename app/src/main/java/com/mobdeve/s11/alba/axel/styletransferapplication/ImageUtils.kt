@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.RectF
+import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 // import android.support.media.ExifInterface // for lower APIs
 import java.io.File
@@ -107,7 +108,7 @@ abstract class ImageUtils {
             )
         }
 
-        fun scaleBitmapAndKeepRatio(
+        fun scaleBitmapAndKeepRatioPortrait(
             targetBmp: Bitmap,
             reqHeightInPixels: Int,
             reqWidthInPixels: Int
@@ -136,6 +137,35 @@ abstract class ImageUtils {
             )
         }
 
+        fun scaleBitmapAndKeepRatioLandscape(
+            targetBmp: Bitmap,
+            reqHeightInPixels: Int,
+            reqWidthInPixels: Int
+        ): Bitmap {
+            if (targetBmp.height == reqHeightInPixels && targetBmp.width == reqWidthInPixels) {
+                return targetBmp
+            }
+            val matrix = Matrix()
+            matrix.setRectToRect(
+                RectF(
+                    0f, 0f,
+                    targetBmp.height.toFloat(),
+                    targetBmp.height.toFloat()
+                ),
+                RectF(
+                    0f, 0f,
+                    reqWidthInPixels.toFloat(),
+                    reqHeightInPixels.toFloat()
+                ),
+                Matrix.ScaleToFit.FILL
+            )
+            return Bitmap.createBitmap(
+                targetBmp, 0, 0,
+                targetBmp.height,
+                targetBmp.height, matrix, true
+            )
+        }
+
         fun bitmapToByteBuffer(
             bitmapIn: Bitmap,
             width: Int,
@@ -143,7 +173,15 @@ abstract class ImageUtils {
             mean: Float = 0.0f,
             std: Float = 255.0f
         ): ByteBuffer {
-            val bitmap = scaleBitmapAndKeepRatio(bitmapIn, width, height)
+            var bitmap = scaleBitmapAndKeepRatioPortrait(bitmapIn, width, height)
+            Log.d("WOW", "TAENAMO")
+            try {
+                bitmap = scaleBitmapAndKeepRatioPortrait(bitmapIn, width, height)
+            } catch (e: IllegalArgumentException) {
+                Log.d("WOW", "ULAM")
+                bitmap = scaleBitmapAndKeepRatioLandscape(bitmapIn, width, height)
+            }
+
             val inputImage = ByteBuffer.allocateDirect(1 * width * height * 3 * 4)
             inputImage.order(ByteOrder.nativeOrder())
             inputImage.rewind()

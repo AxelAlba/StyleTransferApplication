@@ -41,7 +41,7 @@ public class MainAdapter extends RecyclerView.Adapter<MyViewHolder> {
 //        holder.setLike(this.posts.get(position).getLiked());
         holder.setHeader(this.posts.get(position).getUsername(), this.posts.get(position).getDatePosted());
         holder.setMainPost(this.posts.get(position).getImageURI());
-        holder.setCaption(this.posts.get(position).getUsername(), this.posts.get(position).getCaption(), this.posts.get(position).getDatePosted());
+        holder.setCaption(this.posts.get(position).getCaption(), this.posts.get(position).getDatePosted());
         holder.setLike(this.posts.get(position).getLiked());
         holder.setIsRecyclable(false);
     }

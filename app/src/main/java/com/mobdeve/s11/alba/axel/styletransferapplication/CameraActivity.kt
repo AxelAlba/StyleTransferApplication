@@ -140,35 +140,4 @@ class CameraActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
         startActivity(intent)
     }
 
-    // this transformation is necessary to show the top square of the image as the model
-    // will work on this part only, making the preview and the result show the same base
-    class CropTop : BitmapTransformation() {
-        override fun transform(
-            pool: BitmapPool,
-            toTransform: Bitmap,
-            outWidth: Int,
-            outHeight: Int
-        ): Bitmap {
-            return if (toTransform.width == outWidth && toTransform.height == outHeight) {
-                toTransform
-            } else ImageUtils.scaleBitmapAndKeepRatio(toTransform, outWidth, outHeight)
-        }
-
-        override fun equals(other: Any?): Boolean {
-            return other is CropTop
-        }
-
-        override fun hashCode(): Int {
-            return ID.hashCode()
-        }
-
-        override fun updateDiskCacheKey(messageDigest: MessageDigest) {
-            messageDigest.update(ID_BYTES)
-        }
-
-        companion object {
-            private const val ID = "org.tensorflow.lite.examples.styletransfer.CropTop"
-            private val ID_BYTES = ID.toByteArray(Charset.forName("UTF-8"))
-        }
-    }
 }

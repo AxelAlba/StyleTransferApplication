@@ -1,4 +1,4 @@
-# Mockingbird
+# Mockingbird 🐦
 
 **Mockingbird** is a mobile app that lets the users turn their photos into the style of the famous painters. The app acts like a virtual museum where user can share their works online and appreciate other people's works.
 

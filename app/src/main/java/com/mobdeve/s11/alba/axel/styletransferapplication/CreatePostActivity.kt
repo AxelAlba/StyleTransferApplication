@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -159,24 +158,6 @@ class CreatePostActivity : AppCompatActivity(), StyleFragment.OnListFragmentInte
 
         return "" + getFilesDir().toPath() + "/" + filename
     }
-
-//    private fun SaveImage(finalBitmap: Bitmap) {
-//        val root = Environment.getExternalStorageDirectory().absolutePath
-//        val myDir = File("$root/saved_images")
-//        myDir.mkdirs()
-//        val fname = "Image-" + "test" + ".jpg"
-//        val file = File(myDir, fname)
-//        if (file.exists()) file.delete()
-//        try {
-//            val out: FileOutputStream = FileOutputStream(file)
-//            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
-//            out.flush()
-//            out.close()
-//            Log.d("SaveImage", "success" + file.exists())
-//        } catch (e: java.lang.Exception) {
-//            e.printStackTrace()
-//        }
-//    }
 
     private fun setImageView(imageView: ImageView, image: Bitmap) {
         Glide.with(baseContext)

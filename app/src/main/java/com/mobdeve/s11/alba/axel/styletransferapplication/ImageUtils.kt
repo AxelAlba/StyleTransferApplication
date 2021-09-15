@@ -8,7 +8,6 @@ import android.graphics.Matrix
 import android.graphics.RectF
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface
-// import android.support.media.ExifInterface // for lower APIs
 import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder

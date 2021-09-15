@@ -3,7 +3,6 @@ package com.mobdeve.s11.alba.axel.styletransferapplication
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.hardware.camera2.CameraCharacteristics
 import android.os.Bundle
 import android.os.Process
@@ -11,13 +10,9 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.mobdeve.s11.alba.axel.styletransferapplication.camera.CameraFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.io.File
-import java.nio.charset.Charset
-import java.security.MessageDigest
 
 // This is an arbitrary number we are using to keep tab of the permission
 // request. Where an app has multiple context for requesting permission,

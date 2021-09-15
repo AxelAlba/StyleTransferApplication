@@ -3,7 +3,6 @@ package com.mobdeve.s11.alba.axel.styletransferapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,11 +45,6 @@ public class MainAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
-        // Set res on entry
-//        holder.setHeader(this.posts.get(position).getUserImageId(), this.posts.get(position).getUsername(), this.posts.get(position).getLocation());
-//        holder.setMainPost(this.posts.get(position).getImageId());
-//        holder.setCaption(this.posts.get(position).getUsername(), this.posts.get(position).getCaption(), this.posts.get(position).getDatePosted());
-//        holder.setLike(this.posts.get(position).getLiked());
         holder.setHeader(this.posts.get(position).getUsername(), this.posts.get(position).getDatePosted());
         holder.setMainPost(this.posts.get(position).getImageURI());
         holder.setCaption(this.posts.get(position).getCaption(), this.posts.get(position).getDatePosted());

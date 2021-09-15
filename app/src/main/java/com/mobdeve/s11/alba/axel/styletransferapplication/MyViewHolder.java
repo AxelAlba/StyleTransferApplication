@@ -3,13 +3,10 @@ package com.mobdeve.s11.alba.axel.styletransferapplication;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -41,27 +38,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         // Caption Section
         this.tvCaption = itemView.findViewById(R.id.tv_caption_text);
         this.fabLike = itemView.findViewById(R.id.fab_like);
-//        this.fabLike.setOnClickListener(this);
 
         this.tvNumLikes = itemView.findViewById(R.id.tv_num_likes);
 
     }
-
-//    @Override
-//    public void onClick(View view) {
-//        this.liked = !this.liked;
-//        this.addLike();
-//    }
-    // old
-//    public void setHeader(int profileImage, String username, String location) {
-//        this.ivRoundPlaceholder.setImageResource(profileImage);
-//        this.tvUsername.setText(username);
-//        if (location != null) {
-//            this.tvLocation.setText(location);
-//        } else {
-//            this.tvLocation.setVisibility(View.GONE);
-//        }
-//    }
 
     public void setHeader(String username, String date) {
         this.tvUsername.setText(username);
@@ -71,11 +51,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             this.tvDatePosted.setVisibility(View.GONE);
         }
     }
-//Glide.with(this).load(URL_TO_IMAGE).into(imageView);
-
-//    public void setMainPost(int mainPostImage) {
-//        this.ivMainPost.setImageResource(mainPostImage);
-//    }
 
     public void setMainPost(String url) {
         Glide.with(this.context).load(url).into(this.ivMainPost);

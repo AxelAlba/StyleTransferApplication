@@ -1,10 +1,7 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication;
-
-import android.net.Uri;
-
 public class Post {
-    private int imageId, userImageId, numLikes;
-    private String caption, location, username, datePosted;
+    private int numLikes;
+    private String caption, username, datePosted;
     private boolean liked;
     private String imageURI, firestoreID;
     private Long timestamp;
@@ -36,10 +33,6 @@ public class Post {
         return this.imageURI + " "+ this.username + " " + this.caption + " " + this.datePosted + " " + this.numLikes + " " + this.liked;
     }
 
-    public int getImageId() {
-        return imageId;
-    }
-
     public Long getTimestamp() { return timestamp; }
 
     public String getImageURI() { return imageURI; }
@@ -54,16 +47,8 @@ public class Post {
         return caption;
     }
 
-    public int getUserImageId() {
-        return userImageId;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public boolean getLiked() {
@@ -77,7 +62,5 @@ public class Post {
     public String getFirestoreID() { return firestoreID; }
 
     public void setImageURI(String uri) { this.imageURI = uri; }
-
-    public void setFirestoreID(String id) { this.firestoreID = id; }
 }
 

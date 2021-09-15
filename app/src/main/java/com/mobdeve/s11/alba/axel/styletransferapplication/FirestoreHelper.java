@@ -1,15 +1,12 @@
 package com.mobdeve.s11.alba.axel.styletransferapplication;
 
-import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
@@ -20,9 +17,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -76,39 +71,6 @@ public class FirestoreHelper {
     interface readAllDataCallback {
         void result(ArrayList<Post> data);
     }
-
-//    public void readAllData(readAllDataCallback cb) {
-//        ArrayList<Post> data = new ArrayList<>();
-//
-//        this.db.collection("posts")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            // Build ArrayList of Post object here
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Map<String, Object> tempDocument = document.getData();
-//                                //Log.d(TAG, document.getId() + " => " + tempDocument.get("username"));
-//                                Log.d(TAG, "wa");
-//                                data.add(new Post(
-//                                        tempDocument.get("imageURL").toString(),
-//                                        tempDocument.get("username").toString(),
-//                                        tempDocument.get("caption").toString(),
-//                                        tempDocument.get("datePosted").toString(),
-//                                        Integer.parseInt(tempDocument.get("numLikes").toString()),
-//                                        tempDocument.get("liked") == "true"));
-//                            }
-//
-//                            // Callback
-//                            cb.result(data);
-//
-//                        } else {
-//                            Log.w(TAG, "Error getting documents.", task.getException());
-//                        }
-//                    }
-//                });
-//    }
 
     public void readAllDataListen (readAllDataCallback cb) {
         this.db.collection("posts")
